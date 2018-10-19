@@ -46,7 +46,7 @@ const handlers = {};
 
 handlers.hello = (data, callback) => {
     const message = {
-        message: data.payload ? `Your message was ${data.payload}` : 'There are no message'
+        message: data.payload ? `Your message was ${data.payload}` : 'There is no message'
     };
     callback(200, message)
 };
