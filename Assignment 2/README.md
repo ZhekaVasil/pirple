@@ -1,6 +1,6 @@
 # **Welcome to pizza-delivery company API**
 
-## Fast start:
+## Quick start:
 1. Create new account:
 
     **POST /users**
