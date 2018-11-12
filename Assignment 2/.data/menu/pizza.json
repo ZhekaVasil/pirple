@@ -1,0 +1,32 @@
+[
+  {
+    "name": "Neapolitan",
+    "price": 5.05,
+    "type": "Pizza",
+    "id": "p_1"
+  },
+  {
+    "name": "Chicago",
+    "price": 4.39,
+    "type": "Pizza",
+    "id": "p_2"
+  },
+  {
+    "name": "Sicilian",
+    "price": 2.6,
+    "type": "Pizza",
+    "id": "p_3"
+  },
+  {
+    "name": "Greek",
+    "price": 9.32,
+    "type": "Pizza",
+    "id": "p_4"
+  },
+  {
+    "name": "California",
+    "price": 9.6,
+    "type": "Pizza",
+    "id": "p_5"
+  }
+]

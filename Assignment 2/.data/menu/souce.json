@@ -1,0 +1,32 @@
+[
+  {
+    "name": "Chermoula",
+    "price": 0.05,
+    "type": "Sauce",
+    "id": "s_1"
+  },
+  {
+    "name": "Harissa",
+    "price": 0.39,
+    "type": "Sauce",
+    "id": "s_2"
+  },
+  {
+    "name": "Maafe",
+    "price": 0.6,
+    "type": "Sauce",
+    "id": "s_3"
+  },
+  {
+    "name": "Doubanjiang",
+    "price": 0.32,
+    "type": "Sauce",
+    "id": "s_4"
+  },
+  {
+    "name": "Sweet bean sauce",
+    "price": 0.6,
+    "type": "Sauce",
+    "id": "s_5"
+  }
+]
