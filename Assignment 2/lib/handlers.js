@@ -327,7 +327,7 @@ handlers._menu.get = ({headers: {token = null}, queryStringObject: {email = null
       if (tokenIsValid) {
         handlers._getMenuItems((err, menu) => {
           if (!err && menu) {
-            callback(false, menu);
+            callback(200, menu);
           } else {
             callback(403, {error: err})
           }
