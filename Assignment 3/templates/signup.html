@@ -1,0 +1,24 @@
+
+<form id="sign_up_form" action="api/users" method="POST" data-redirect="main" class="user-form main-section" data-callback="successSignUp" autocomplete="off">
+  <h1 class="text-align-center m-b-1">SignUp Form</h1>
+  <fieldset class="fieldset">
+    <label for="name">Name:</label>
+    <input id="name" class="input-text" type="text" name="name">
+  </fieldset>
+  <fieldset class="fieldset">
+    <label for="email">Email:</label>
+    <input id="email" type="email" class="input-text" name="email">
+  </fieldset >
+  <fieldset class="fieldset">
+    <label for="address">Address:</label>
+    <input id="address" class="input-text" name="address">
+  </fieldset>
+  <fieldset class="fieldset">
+    <label for="password">Password:</label>
+    <input id="password" type="password" class="input-text" name="password">
+  </fieldset>
+  <p class="form-error text-align-center hidden"></p>
+  <fieldset class="fieldset text-align-center m-t-2">
+    <input id="submit" type="submit" value="Submit" class="btn">
+  </fieldset>
+</form>
