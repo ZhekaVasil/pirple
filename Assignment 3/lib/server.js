@@ -104,7 +104,10 @@ server.router = {
   'public': handlers.public,
   'ping': handlers.ping,
   
-  'signup': handlers.signup,
+  'signup': handlers.signupPage,
+  'login': handlers.loginPage,
+  'menu': handlers.menuPage,
+  'cart': handlers.cartPage,
   
   'api/users': handlers.users,
   'api/tokens': handlers.tokens,

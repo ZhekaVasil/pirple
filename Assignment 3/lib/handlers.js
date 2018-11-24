@@ -56,7 +56,6 @@ handlers._users.post = ({payload: {name, email, address, password}}, callback) =
 // Get user profile
 handlers._users.get = ({headers: {token = null}, queryStringObject: {email = null}}, callback) => {
   if (email) {
-    console.log(token);
     handlers._tokens.verifyToken(token, email, (tokenIsValid) => {
       if (tokenIsValid) {
         _data.read('users', email, (err, data) => {
@@ -252,7 +251,7 @@ handlers._tokens.put = ({
             }
           })
         } else {
-          callback(400, {error: 'Token already expired'})
+          callback(400, {error: 'Token already expired', expired: true})
         }
       } else {
         callback(400, {error: 'Token not found'})
@@ -350,6 +349,9 @@ handlers._getMenuItems = (callback) => {
       list.forEach((item, index, arr) => {
         _data.read('menu', item, (err, data) => {
           if (!err && data) {
+            data.menu.forEach(menuItem => {
+              menuItem.type = data.sectionName
+            });
             menu[item] = data;
             if (++completed === arr.length) {
               callback(false, menu);
@@ -394,7 +396,7 @@ handlers._cart.post = ({headers: {token = null}, payload: {email = null, cart = 
             const totalCart = [];
             let amount = 0;
             Object.keys(menu).forEach(item => {
-              menuItems.push(...menu[item])
+              menuItems.push(...menu[item].menu)
             });
             
             cart.forEach(item => {
@@ -532,14 +534,45 @@ handlers.notFoundStatic = (data, callback) => {
 };
 
 // Serve SignUp page
-handlers.signup = (data, callback) => {
+handlers.signupPage = (data, callback) => {
   const templateData = {
     'head.title': 'Sign Up',
-    'head.description': 'Ass new pizza account',
+    'head.description': 'Add new pizza account',
     'body.class': 'sign-up-page'
   };
   handlers.serveStaticPage('signup', data, templateData, callback)
 };
+
+// Serve login page
+handlers.loginPage = (data, callback) => {
+  const templateData = {
+    'head.title': 'Log In',
+    'head.description': 'Log In to pizza account',
+    'body.class': 'log-in-page'
+  };
+  handlers.serveStaticPage('login', data, templateData, callback)
+};
+
+// Serve menu page
+handlers.menuPage = (data, callback) => {
+  const templateData = {
+    'head.title': 'Pizza Menu',
+    'head.description': 'Order Pizza',
+    'body.class': 'menu-page'
+  };
+  handlers.serveStaticPage('menu', data, templateData, callback)
+};
+
+// Serve cart page
+handlers.cartPage = (data, callback) => {
+  const templateData = {
+    'head.title': 'Your cart',
+    'head.description': 'Your cart',
+    'body.class': 'cart-page'
+  };
+  handlers.serveStaticPage('cart', data, templateData, callback)
+};
+
 
 
 module.exports = handlers;
