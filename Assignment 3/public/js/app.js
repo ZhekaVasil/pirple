@@ -16,9 +16,19 @@ app.callbacks = {};
 app.isUserAuthorized = false;
 // User's cart
 app.cart = {};
+// Container for all menu items
+app.allItems = {};
+// Instance of Stripe
+app.stripeHandler = null;
 
 // Pages for which authorization is nit required
 app.config.safePage = ['', 'login', 'signup'];
+
+// Token for using payment form
+app.config.stripeToken = 'pk_test_U73Ltl4YduFAcGTFISR2in7T';
+app.config.stripeImage = 'public/img/logo.png';
+
+app.config.siteName = 'Easy Pizza';
 
 app.messages.emptyCart = 'Your cart is empty.';
 app.messages.serviceError = 'Something is wrong, please try later.';
@@ -331,6 +341,9 @@ app.showCartList = () => {
       
       // Show total amount
       app.showTotalAmount();
+      
+      // Initialize payment form
+      app.stripeInitialize();
     
       container.addEventListener('click', app.callbacks.handleCartActions.bind(this, container))
     }, (errorResponse) => {
@@ -341,8 +354,39 @@ app.showCartList = () => {
   }
 };
 
+// Initialize payment form
+app.stripeInitialize = () => {
+  app.stripeHandler = StripeCheckout.configure({
+    key: app.config.stripeToken,
+    image: app.config.stripeImage,
+    locale: 'auto',
+    email: app.token.email,
+    token: (token) => {
+      const button = document.querySelector('.cart-item-order');
+      // Disable submit button
+      button.setAttribute('disabled', 'true');
+      app.request('api/cart', {
+        method: 'POST',
+        body: {
+          email: app.token.email,
+          cart: app.createCart(),
+          source: token.id
+        }
+      }).then(() => {
+        window.localStorage.removeItem('cart');
+        app.goToPage('');
+      }, () => {
+        // Enable submit button
+        button.removeAttribute('disabled');
+        alert(app.messages.canNotProcessOrder)
+      })
+    }
+  });
+};
+
 // Handle cart actions
 app.callbacks.handleCartActions = (container, event) => {
+  event.preventDefault();
   const target = event.target;
   if (target.classList.contains('cart-item-action')) {
     
@@ -370,26 +414,17 @@ app.callbacks.handleCartActions = (container, event) => {
     }
     
   } else if (target.classList.contains('cart-item-order')) {
-    // Disable submit button
-    target.setAttribute('disabled', 'true');
     app.makeOrder()
   }
 };
 
 // Make order request
 app.makeOrder = () => {
-   app.request('api/cart', {
-     method: 'POST',
-     body: {
-       email: app.token.email,
-       cart: app.createCart()
-     }
-   }).then(() => {
-     window.localStorage.removeItem('cart');
-     app.goToPage('');
-   }, () => {
-     alert(app.messages.canNotProcessOrder)
-   })
+// Open Checkout with further options:
+  app.stripeHandler.open({
+    name: app.config.siteName,
+    amount: app.getTotalAmount() * 100
+  });
 };
 
 // Create new cart for service request
@@ -532,5 +567,5 @@ app.init = () => {
   .catch(error => console.error(error))
 };
 
-// Lets get the party started!!!
+// Let's get the party started!!!
 document.addEventListener('DOMContentLoaded', app.init);

@@ -11,13 +11,13 @@ const StringDecoder = require('string_decoder').StringDecoder;
 const stripe = {};
 
 // Send payment request
-stripe.pay = ({amount, description}, callback) => {
+stripe.pay = ({amount, description, source}, callback) => {
   if (amount && description) {
     const payload = {
       amount,
       description,
-      currency: config.stripeCurrency,
-      source: config.stripeSource
+      source,
+      currency: config.stripeCurrency
     };
     const stringPayload = querystring.stringify(payload);
     const requestDetails = {

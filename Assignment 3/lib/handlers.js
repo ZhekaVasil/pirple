@@ -385,7 +385,7 @@ handlers.cart = (data, callback) => {
 handlers._cart = {};
 
 // Update user's cart
-handlers._cart.post = ({headers: {token = null}, payload: {email = null, cart = null}}, callback) => {
+handlers._cart.post = ({headers: {token = null}, payload: {email = null, cart = null, source = null}}, callback) => {
   if (email && cart && cart.length) {
     handlers._tokens.verifyToken(token, email, (tokenIsValid) => {
       if (tokenIsValid) {
@@ -411,6 +411,7 @@ handlers._cart.post = ({headers: {token = null}, payload: {email = null, cart = 
             
             stripe.pay({
               amount,
+              source,
               description: 'Test Pizza Pay'
             }, (err, data) => {
               if (!err && data) {

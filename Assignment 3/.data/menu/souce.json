@@ -4,13 +4,13 @@
   "menu": [
     {
       "name": "Chermoula",
-      "price": 0.05,
+      "price": 0.5,
       "image": "/public/img/menu/sauce/Chermoula.jpg",
       "id": "s_1"
     },
     {
       "name": "Harissa",
-      "price": 0.39,
+      "price": 0.59,
       "image": "/public/img/menu/sauce/Harissa.jpg",
       "id": "s_2"
     },
