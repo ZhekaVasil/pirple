@@ -1,3 +1,3 @@
 # Assignment #6
 
-Refactored first homework assignment to run it across all the cores of your machine (using the cluster module)
+Refactored first homework assignment to run it across all the cores of machine (using the cluster module)
