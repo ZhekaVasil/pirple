@@ -18,3 +18,5 @@ https://github.com/nodenica/youtube-node/pull/40#issuecomment-451679960
 StackOverflow:
 
 https://stackoverflow.com/a/54060460/10872810
+
+https://stackoverflow.com/a/54060706/10872810
